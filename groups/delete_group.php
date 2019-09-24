@@ -8,7 +8,7 @@ try
     $stmt = $con->prepare($query);
     $stmt->bindParam(1, $id);
      
-    if($stmt->execute()){
+    if($stmt->execute())
         header('Location: groups.php?action=deleted');
     else
         die('Unable to delete record.');

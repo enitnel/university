@@ -6,15 +6,19 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="page-header">
             <h1>Edit the group</h1>
         </div>
-     
+
         <?php
+
         $id=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
+
         include '../config/database.php';
-        try
+
+        try 
         {
             $query = "SELECT * FROM vstu_groups WHERE group_id = ?";
 
@@ -23,7 +27,8 @@
             $stmt->execute();
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+             
+            // values to fill up our form
             $GroupName = $row['group_name'];
             $Quantity = $row['number_of_students'];
         }
@@ -33,11 +38,10 @@
         }
 
         if($_POST)
-        {
+        { 
             try
             {
                 $query = "UPDATE vstu_groups SET group_name=:group_name, number_of_students=:number_of_students WHERE group_id = :group_id";
-
                 $stmt = $con->prepare($query);
 
                 $GroupName=htmlspecialchars(strip_tags($_POST['group_name']));
@@ -67,7 +71,7 @@
                 </tr>
                 <tr>
                     <td>Group quantity</td>
-                    <td><textarea name='number_of_students' class='form-control'><?php echo htmlspecialchars($Quantity, ENT_QUOTES);  ?></textarea></td>
+                    <td><textarea name='number_of_students' class='form-control'><?php echo htmlspecialchars($Quantity, ENT_QUOTES);?></textarea></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -80,6 +84,6 @@
         </form>
 
     </div>
-    
+
 </body>
 </html>
